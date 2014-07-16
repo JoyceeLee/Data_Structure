@@ -7,7 +7,7 @@ public class Solution {
         if(root==null || p==null || q==null)
             return null;
         int totalMatch = countMatch(root, p, q);
-        if(totalMatch!=2) return null;  //--------------------- how to avoid after the first sort ?
+        if(totalMatch!=2) return null;  //--------------------- how to avoid after the first sort ? ? ?
         
         if(root==p || root==q) return root;
         int leftMatch = countMatch(root.left, p, q);
