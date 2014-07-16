@@ -2,6 +2,17 @@
 
 // Solution 1
 // A Top-Down Approach ( Worst case O(n^2) ):
+/*
+Time Complexity
+For balance tree : O(n)
+    - countMatch : t(n) = O(n)
+    - LCAofBT : T(n) = t(n) + t(n/2) + T(n/2)
+                T(n) = O(n)
+For degenerate tree (worst case) : O(n^2)
+    - countMatch : t(n) = O(n)
+    - LCAofBT : T(n) = t(n) + t(n-1) + T(n-1)
+                T(n) = O(n^2)
+*/
 public class Solution {
     public TreeNode LCAofBT(TreeNode root, TreeNode p, TreeNode q) {
         if(root==null || p==null || q==null)
@@ -30,12 +41,22 @@ public class Solution {
 
 // Solution 2
 // A Bottom-up Approach (Worst case O(n) ):
+/*
+Time Complexity : O(n)
+- check : t(n) = O(n)
+- helper : tt(n) = O(n)
+- LCAofBT : T(n) = t(n) + tt(n) = O(n)
+*/
 public class Solution {
     public TreeNode LCAofBT(TreeNode root, TreeNode p, TreeNode q) {
         if(root==null || p==null || q==null)
             return null;
-        if(!cover(root, p) || !cover(root, q))
+        if(!check(root, p) || !check(root, q))
             return null;
+        return helper(root, p, q);
+    }
+    public TreeNode helper(TreeNode root, TreeNode p, TreeNode q) {
+        if(root==null) return null;
         if(root==p || root==q)
             return root;
         TreeNode left = LCAofBT(root.left, p, q);
@@ -43,9 +64,9 @@ public class Solution {
         if(left!=null && right!=null) return root;
         return left==null ? right : left;
     }
-    public boolean cover(TreeNode root, TreeNode p) {
+    public boolean check(TreeNode root, TreeNode p) {
         if(root==null) return false;
         if(root==p) return true;
-        return cover(root.left, p) || cover(root.right, p);
+        return check(root.left, p) || check(root.right, p);
     }
 }
