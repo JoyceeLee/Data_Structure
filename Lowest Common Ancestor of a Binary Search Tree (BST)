@@ -16,6 +16,7 @@ public class Solution {
         return root;
     }
     public boolean cover(TreeNode root, TreeNode p) {
+        if(root==null) return false;
         if(root==p) return true;
         return cover(root.left, p) || cover(root.right, p);
     }
