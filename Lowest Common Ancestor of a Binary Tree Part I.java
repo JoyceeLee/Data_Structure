@@ -11,7 +11,7 @@ public class Solution {
         
         if(root==p || root==q) return root;
         int leftMatch = countMatch(root.left, p, q);
-        if(totalMatch==1) 
+        if(leftMatch==1) 
             return root;
         else if(leftMatch==2) 
             return LCAofBT(root.left, p, q);
