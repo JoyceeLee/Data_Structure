@@ -38,8 +38,8 @@ public class Solution {
             return null;
         if(root==p || root==q)
             return root;
-        TreeNode left = LCAofBT(root, p, q);
-        TreeNode right = LCAofBT(root, p, q);
+        TreeNode left = LCAofBT(root.left, p, q);
+        TreeNode right = LCAofBT(root.right, p, q);
         if(left!=null && right!=null) return root;
         return left==null ? right : left;
     }
