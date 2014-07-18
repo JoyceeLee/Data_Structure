@@ -20,22 +20,22 @@
 */
 
 
-class Number {
+class Numb {
     int data;
-    public Number(int data) {
+    public Numb(int data) {
         this.data = data;
     }
 }
 public class Solution {
     public TreeNode findLargestBST(TreeNode root) {
         TreeNode largestBST = null;
-        Number min = new Number(0);
-        Number max = new Number(0);
-        Number total = new Number(Integer.MIN_VALUE);
+        Numb min = new Numb(0);
+        Numb max = new Numb(0);
+        Numb total = new Numb(Integer.MIN_VALUE);
         helper(root, min, max, total, largestBST);
         return largetsBST;
     }
-    public int helper(TreeNode root, Number min, Number max, Number total, TreeNode largestBST) {
+    public int helper(TreeNode root, Numb min, Numb max, Numb total, TreeNode largestBST) {
         if(root==null)
             return 0;
             
