@@ -10,41 +10,45 @@
 * You would need to create copies of the subtrees or delete nodes from the original binary tree.
 */
 
-int findLargestBST(BinaryTree *p, int min, int max, int &maxNodes, 
-                   BinaryTree *& largestBST, BinaryTree *& child) {
-  if (!p) return 0;
-  if (min < p->data && p->data < max) {
-    int leftNodes = findLargestBST(p->left, min, p->data, maxNodes, largestBST, child);
-    BinaryTree *leftChild = (leftNodes == 0) ? NULL : child;
-    int rightNodes = findLargestBST(p->right, p->data, max, maxNodes, largestBST, child);
-    BinaryTree *rightChild = (rightNodes == 0) ? NULL : child;
-    // create a copy of the current node and 
-    // assign its left and right child.
-    BinaryTree *parent = new BinaryTree(p->data);
-    parent->left = leftChild;
-    parent->right = rightChild;
-    // pass the parent as the child to the above tree.
-    child = parent;
-    int totalNodes = leftNodes + rightNodes + 1;
-    if (totalNodes > maxNodes) {
-      maxNodes = totalNodes;
-      largestBST = parent;
+
+class Numb {
+    int data;
+    public Numb(int data) {
+        this.data = data;
     }
-    return totalNodes;
-  } else {
-    // include this node breaks the BST constraint,
-    // so treat this node as an entirely new tree and 
-    // check if a larger BST exist in this tree
-    findLargestBST(p, INT_MIN, INT_MAX, maxNodes, largestBST, child);
-    // must return 0 to exclude this node
-    return 0;
-  }
 }
- 
-BinaryTree* findLargestBST(BinaryTree *root) {
-  BinaryTree *largestBST = NULL;
-  BinaryTree *child;
-  int maxNodes = INT_MIN;
-  findLargestBST(root, INT_MIN, INT_MAX, maxNodes, largestBST, child);
-  return largestBST;
+public class Solution {
+    public findLargestBST(TreeNode root){
+        TreeNode largestBST = null;
+        TreeNode child = null;
+        Numb maxNodes = new Numb(Integer.MIN_VALUE);
+
+        helper(root, Integer.MIN_VALUE, Integer.MAX_VALUE, maxNodes, largestBST, child);
+        return largestBST;
+    }
+    public int helper(TreeNode root, int min, int max, 
+                   Numb maxNodes, TreeNode largestBST, TreeNode child) {
+        if(root==null) return 0;
+        if(min<root.val && root.val<max) {
+            int leftNodes = helper(root.left, min, root.val, maxNodes, largestBST, child);
+            TreeNode leftChild = leftNodes==0 ? null : child;
+            int rightNodes = helper(root.right, root.val, max, maxNodes, largestBST, child);
+            TreeNode rightChild = rightNodes==0 ? null : child;
+            
+            TreeNode parent = new TreeNode(root.val);
+            parent.left = leftChild;
+            parentright = rightChild;
+            child = parent;
+            
+            int total = leftNodes + rightNodes + 1;
+            if(total>maxNodes.data) {
+                maxNodes.data = total;
+                largestBST = child;
+            }
+            return total;
+        } else {
+            helper(root, Integer.MIN_VALUE, Integer.MAX_VALUE, maxNodes, largestBST, child);
+            return 0;
+        }
+    }
 }
