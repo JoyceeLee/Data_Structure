@@ -59,8 +59,8 @@ public class Solution {
         if(root==null) return null;
         if(root==p || root==q)
             return root;
-        TreeNode left = LCAofBT(root.left, p, q);
-        TreeNode right = LCAofBT(root.right, p, q);
+        TreeNode left = helper(root.left, p, q);
+        TreeNode right = helper(root.right, p, q);
         if(left!=null && right!=null) return root;
         return left==null ? right : left;
     }
